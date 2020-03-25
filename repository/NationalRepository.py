@@ -3,7 +3,7 @@ import json
 
 class NationalRepository:
 
-    def save(national_statistics):
+    def save(self, national_statistics):
         with open('data.txt', 'w') as outfile:
             json.dump(national_statistics.__dict__, outfile)
 
