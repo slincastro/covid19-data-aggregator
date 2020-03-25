@@ -1,9 +1,9 @@
 import json
 
 import scrapy
-from scrapy.crawler import CrawlerProcess
 
 from National import National
+from repository.NationalRepository import NationalRepository
 
 
 class NationalCovidSpider(scrapy.Spider):
@@ -15,12 +15,21 @@ class NationalCovidSpider(scrapy.Spider):
         yield scrapy.Request(url=url, callback=self.parse)
 
     def parse(self, response):
-        out = response.xpath("//div[@class = 'vcex-milestone-number']/span[@class = 'vcex-milestone-time vcex-countup']/text()").extract()
-        national_statistics = National(out[0], out[1], out[2], out[3])
+        data = self.extract_data(response)
+
+        cases = data[0]
+        siege = data[1]
+        recoveries = data[2]
+        diseases = data[3]
+
+        national_statistics = National(cases, siege, recoveries, diseases)
         print(json.dumps(national_statistics.__dict__))
-        print("################################# Writing File #############################")
-        with open('data.txt', 'w') as outfile:
-            json.dump(national_statistics.__dict__, outfile)
-        print("################################# Writing Finished #############################")
+        NationalRepository.save(national_statistics)
+
+    def extract_data(self, response):
+        out = response.xpath(
+            "//div[@class = 'vcex-milestone-number']/span[@class = 'vcex-milestone-time vcex-countup']/text()").extract()
+        return out
+
 
 

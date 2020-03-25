@@ -6,6 +6,7 @@ from flask import Flask
 from scrapy.crawler import CrawlerRunner
 
 from NationalCovidSpider import NationalCovidSpider
+from repository.NationalRepository import NationalRepository
 
 crochet.setup()
 app = Flask(__name__)
@@ -15,8 +16,7 @@ crawl_runner = CrawlerRunner()
 @app.route('/Ecuador')
 def national_statistic():
     scrape_with_crochet()
-    with open('data.txt') as json_file:
-        data = json.load(json_file)
+    data = NationalRepository.get_national_data()
 
     return data
 
