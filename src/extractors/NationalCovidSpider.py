@@ -24,11 +24,9 @@ class NationalCovidSpider(scrapy.Spider):
         recoveries = data[2]
         deaths = data[3]
         time = datetime.now().timestamp()
-
-        national_statistics = National(
-            suspicious, confirmed, recoveries, deaths, time)
+        national_statistics = National.National(suspicious, confirmed, recoveries, deaths, time)
         print(json.dumps(national_statistics.__dict__))
-        repository = NationalRepository()
+        repository = NationalRepository.NationalRepository()
         repository.save(national_statistics)
 
     def extract_data(self, response):
