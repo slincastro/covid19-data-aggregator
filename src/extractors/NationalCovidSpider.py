@@ -3,8 +3,8 @@ from datetime import datetime
 
 import scrapy
 
-from National import National
-from repository.NationalRepository import NationalRepository
+from src.domain import National
+from src.repository import NationalRepository
 
 
 class NationalCovidSpider(scrapy.Spider):

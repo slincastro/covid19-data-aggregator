@@ -4,8 +4,8 @@ import crochet as crochet
 from flask import Flask
 from scrapy.crawler import CrawlerRunner
 
-from NationalCovidSpider import NationalCovidSpider
-from repository.NationalRepository import NationalRepository
+from src.extractors.NationalCovidSpider import NationalCovidSpider
+from src.repository.NationalRepository import NationalRepository
 
 crochet.setup()
 app = Flask(__name__)

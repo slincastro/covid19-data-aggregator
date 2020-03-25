@@ -2,3 +2,5 @@
 __pycache__/
 venv/
 data.txt
+test/
+.DS_Store
