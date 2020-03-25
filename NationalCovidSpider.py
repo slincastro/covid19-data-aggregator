@@ -17,12 +17,12 @@ class NationalCovidSpider(scrapy.Spider):
     def parse(self, response):
         data = self.extract_data(response)
 
-        cases = data[0]
-        siege = data[1]
+        suspicious = data[0]
+        confirmed = data[1]
         recoveries = data[2]
-        diseases = data[3]
+        deaths = data[3]
 
-        national_statistics = National(cases, siege, recoveries, diseases)
+        national_statistics = National(suspicious, confirmed, recoveries, deaths)
         print(json.dumps(national_statistics.__dict__))
         NationalRepository.save(national_statistics)
 
