@@ -24,7 +24,7 @@ def national_statistic():
 def national_statistic():
     scrape_with_crochet()
 
-    return 'Load ....'
+    return 'Loading ....'
 
 
 @crochet.run_in_reactor
