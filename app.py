@@ -13,12 +13,18 @@ crawl_runner = CrawlerRunner()
 
 @app.route('/')
 def national_statistic():
-    scrape_with_crochet()
 
     with open('data.txt') as json_file:
         data = json.load(json_file)
 
     return data
+
+
+@app.route('/load')
+def national_statistic():
+    scrape_with_crochet()
+
+    return 'Load ....'
 
 
 @crochet.run_in_reactor
