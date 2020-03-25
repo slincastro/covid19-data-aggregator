@@ -3,7 +3,7 @@ import json
 import scrapy
 from scrapy.crawler import CrawlerProcess
 
-from national import National
+from National import National
 
 
 class NationalCovidSpider(scrapy.Spider):
@@ -18,13 +18,9 @@ class NationalCovidSpider(scrapy.Spider):
         out = response.xpath("//div[@class = 'vcex-milestone-number']/span[@class = 'vcex-milestone-time vcex-countup']/text()").extract()
         national_statistics = National(out[0], out[1], out[2], out[3])
         print(json.dumps(national_statistics.__dict__))
+        print("################################# Writing File #############################")
         with open('data.txt', 'w') as outfile:
             json.dump(national_statistics.__dict__, outfile)
+        print("################################# Writing Finished #############################")
 
 
-process = CrawlerProcess({
-    'USER_AGENT': 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)'
-})
-
-process.crawl(NationalCovidSpider)
-process.start()
