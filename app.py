@@ -21,7 +21,7 @@ def national_statistic():
 
 
 @app.route('/load')
-def national_statistic():
+def load_data():
     scrape_with_crochet()
 
     return 'Loading ....'
