@@ -1,4 +1,5 @@
 import json
+import os
 
 import crochet as crochet
 from flask import Flask
@@ -33,4 +34,5 @@ def scrape_with_crochet():
 
 
 if __name__ == '__main__':
-    app.run(port='5002', host='0.0.0.0')
+    port = os.environ["PORT"]
+    app.run(port=port, host='0.0.0.0')
