@@ -1,11 +1,10 @@
 import json
-import subprocess
 
 import crochet as crochet
 from flask import Flask
-from scrapy.crawler import CrawlerProcess, CrawlerRunner
+from scrapy.crawler import CrawlerRunner
 
-from spider import MySpider
+from NationalCovidSpider import NationalCovidSpider
 
 crochet.setup()
 app = Flask(__name__)
@@ -22,7 +21,7 @@ def national_statistic():
 
 @crochet.run_in_reactor
 def scrape_with_crochet():
-    crawl_runner.crawl(MySpider)
+    crawl_runner.crawl(NationalCovidSpider)
 
 
 if __name__ == '__main__':
