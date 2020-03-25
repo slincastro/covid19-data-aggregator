@@ -10,6 +10,7 @@ crochet.setup()
 app = Flask(__name__)
 crawl_runner = CrawlerRunner()
 
+
 @app.route('/')
 def national_statistic():
     scrape_with_crochet()
@@ -18,6 +19,7 @@ def national_statistic():
         data = json.load(json_file)
 
     return data
+
 
 @crochet.run_in_reactor
 def scrape_with_crochet():
