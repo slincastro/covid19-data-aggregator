@@ -4,3 +4,5 @@ venv/
 data.txt
 test/
 .DS_Store
+.python-version
+pip.conf

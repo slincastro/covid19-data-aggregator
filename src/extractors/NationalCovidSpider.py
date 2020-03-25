@@ -3,16 +3,16 @@ from datetime import datetime
 
 import scrapy
 
-from src.domain import National
-from src.repository import NationalRepository
+from src.domain.National import National
+from src.repository.NationalRepository import NationalRepository
 
 
 class NationalCovidSpider(scrapy.Spider):
-    name = 'dc_spider'
+    name = "dc_spider"
 
     def start_requests(self):
-        print('start request')
-        url = 'https://coronavirusecuador.com/'
+        print("start request")
+        url = "https://coronavirusecuador.com/"
         yield scrapy.Request(url=url, callback=self.parse)
 
     def parse(self, response):
@@ -32,8 +32,6 @@ class NationalCovidSpider(scrapy.Spider):
 
     def extract_data(self, response):
         out = response.xpath(
-            "//div[@class = 'vcex-milestone-number']/span[@class = 'vcex-milestone-time vcex-countup']/text()").extract()
+            "//div[@class = 'vcex-milestone-number']/span[@class = 'vcex-milestone-time vcex-countup']/text()"
+        ).extract()
         return out
-
-
-
