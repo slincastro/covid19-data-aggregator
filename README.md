@@ -1,6 +1,6 @@
 # covid19-data-aggregator
 
-[![slincastro](https://circleci.com/github/slincastro/covid19-data-aggregator.svg?style=svg)](https://circleci.com/github/slincastro/covid19-data-aggregator)
+[![CircleCI](https://circleci.com/gh/slincastro/covid19-data-aggregator.svg?style=shield)](https://circleci.com/gh/slincastro/covid19-data-aggregator)
 
 
 Architecture Diagram :
