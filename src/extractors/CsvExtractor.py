@@ -11,6 +11,7 @@ class CsvExtractor:
         value = filter["value"]
 
         province = self.data.loc[self.data[column] == value]
+        province = province.replace(pd.np.nan, 0, regex=True)
         print(province)
         province_dict = province.to_dict(orient='records')
         province_json = json.dumps(province_dict)
