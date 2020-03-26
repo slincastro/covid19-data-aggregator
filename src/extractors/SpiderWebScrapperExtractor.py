@@ -7,7 +7,7 @@ from src.domain.National import National
 from src.repository.NationalRepository import NationalRepository
 
 
-class NationalCovidSpider(scrapy.Spider):
+class SpiderWebScrapperExtractor(scrapy.Spider):
     name = 'dc_spider'
 
     def start_requests(self):
