@@ -1,11 +1,13 @@
+import json
 import os
 
 import crochet as crochet
-from flask import Flask, request, jsonify
+
+from flask import Flask, request, Response, make_response, jsonify
 from scrapy.crawler import CrawlerRunner
 
 from src.extractors.CsvExtractor import CsvExtractor
-from src.extractors.NationalCovidSpider import NationalCovidSpider
+from src.extractors.SpiderWebScrapperExtractor import SpiderWebScrapperExtractor
 from src.repository.NationalRepository import NationalRepository
 from src.errors.BadRequest import BadRequest
 
@@ -26,10 +28,14 @@ def national_statistic():
 def data_filtering():
     by = request.args.get('by')
     value = request.args.get('equal')
-    filter = {"column": by,
-              "value": value}
-    handle_filter_errors(filter)
-    return CsvExtractor().get_data_by(filter)
+    filters = {"column": by,
+               "value": value}
+    handle_filter_errors(filters)
+    filtered_data = CsvExtractor().get_data_by(filters)
+    response = make_response(filtered_data)
+    response.headers['Content-Type'] = 'application/json'
+    return response
+
 
 
 def handle_filter_errors(filter):
@@ -55,7 +61,7 @@ def handle_bad_request(error):
 
 @crochet.run_in_reactor
 def scrape_with_crochet():
-    crawl_runner.crawl(NationalCovidSpider)
+    crawl_runner.crawl(SpiderWebScrapperExtractor)
 
 
 if __name__ == '__main__':
