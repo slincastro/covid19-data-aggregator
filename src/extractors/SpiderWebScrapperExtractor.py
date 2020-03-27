@@ -3,16 +3,20 @@ from datetime import datetime
 
 import scrapy
 
+from src.configuration.configuration import Configuration
 from src.domain.National import National
 from src.repository.NationalRepository import NationalRepository
 
 
 class SpiderWebScrapperExtractor(scrapy.Spider):
-    name = 'dc_spider'
+
+    def __init__(self):
+        data_sources_configuration = Configuration.get_configuration("dataSources")
+        self.configuration = data_sources_configuration["coronavirusecuador"]
 
     def start_requests(self):
         print('start request')
-        url = 'https://coronavirusecuador.com/'
+        url = self.configuration["url"]
         yield scrapy.Request(url=url, callback=self.parse)
 
     def parse(self, response):

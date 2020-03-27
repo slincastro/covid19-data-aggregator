@@ -9,7 +9,7 @@ class CsvExtractor:
     def get_data_by(self, filter):
         column = filter["column"]
         value = filter["value"]
-
+        
         province = self.data.loc[self.data[column] == value]
         province = province.replace(pd.np.nan, 0, regex=True)
         print(province)
