@@ -1,3 +1,5 @@
-dataSources:
+data_sources:
   coronavirusecuador:
     url: 'https://coronavirusecuador.com/'
+  csv_covid_ecuador:
+    url: 'https://raw.githubusercontent.com/pablora19/COVID19_EC/master/covid_ec.csv'
