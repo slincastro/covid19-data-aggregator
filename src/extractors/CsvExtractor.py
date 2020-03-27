@@ -1,16 +1,22 @@
-# Load the Pandas libraries with alias 'pd'
 import json
 
 import pandas as pd
 
+from src.configuration.configuration import Configuration
+
+
 class CsvExtractor:
-    data = pd.read_csv("covid_ec.csv")
+    def __init__(self):
+        data_sources_configuration = Configuration.get_configuration("data_sources")
+        self.configuration = data_sources_configuration["csv_covid_ecuador"]
 
     def get_data_by(self, filter):
+
+        data = pd.read_csv(self.configuration["url"])
         column = filter["column"]
         value = filter["value"]
-        
-        province = self.data.loc[self.data[column] == value]
+
+        province = data.loc[data[column] == value]
         province = province.replace(pd.np.nan, 0, regex=True)
         print(province)
         province_dict = province.to_dict(orient='records')
@@ -18,11 +24,3 @@ class CsvExtractor:
         print(province_json)
         return province_json
 
-extractor = CsvExtractor()
-
-parameters = {
-  "column": "nombre_provincia",
-  "value": "pichincha"
-}
-
-extractor.get_data_by(parameters)

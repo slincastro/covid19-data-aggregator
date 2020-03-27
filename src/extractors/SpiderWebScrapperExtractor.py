@@ -11,7 +11,7 @@ from src.repository.NationalRepository import NationalRepository
 class SpiderWebScrapperExtractor(scrapy.Spider):
 
     def __init__(self):
-        data_sources_configuration = Configuration.get_configuration("dataSources")
+        data_sources_configuration = Configuration.get_configuration("data_sources")
         self.configuration = data_sources_configuration["coronavirusecuador"]
 
     def start_requests(self):

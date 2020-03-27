@@ -28,3 +28,10 @@ Set the PORT env variable :
 Run application :
 
 `python app.py`
+
+###Datasources :
+
+webscrapping : https://coronavirusecuador.com/
+
+csv repository : https://github.com/pablora19/COVID19_EC
+
