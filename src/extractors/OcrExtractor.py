@@ -14,10 +14,10 @@ def ocr_core(filename):
 
 
 def binarize_image():
-    col = Image.open("../../test/mark.png")
+    col = Image.open("../../test/outs/mark.png")
     gray = col.convert('L')
     bw = gray.point(lambda x: 0 if x<145 else 255, '1')
     bw.save("test/result_bw1.png")
 
 #binarize_image()
-print(ocr_core('../../test/result_bw1.png'))
+print(ocr_core('../../test/outs/result_bw1.png'))
