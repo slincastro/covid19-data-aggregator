@@ -10,6 +10,7 @@ from src.extractors.CsvExtractor import CsvExtractor
 from src.extractors.SpiderWebScrapperExtractor import SpiderWebScrapperExtractor
 from src.repository.NationalRepository import NationalRepository
 from src.errors.BadRequest import BadRequest
+from src.resources.FilterParameters import FilterParameters
 
 crochet.setup()
 app = Flask(__name__)
@@ -37,12 +38,22 @@ def data_filtering():
     return response
 
 
+@app.route('/Ecuador', methods=['POST'])
+def data_filter_range():
+    parameters = json.loads(request.data)
+    filter = parameters["filter"]
+    filter_parameters = FilterParameters(filter, "", "")
+    filtered_data = CsvExtractor().get_data_by_range_filter(filter_parameters)
+    response = make_response(filtered_data)
+    response.headers['Content-Type'] = 'application/json'
+    return response
+
 
 def handle_filter_errors(filter):
     if not filter["column"]:
-        raise BadRequest('\'by\' parameter can not be empty', 40001, { 'ext':1 }) 
+        raise BadRequest('\'by\' parameter can not be empty', 40001, {'ext': 1})
     if not filter["value"]:
-        raise BadRequest('Filter \'value\' can not be empty', 40002, { 'ext':1 }) 
+        raise BadRequest('Filter \'value\' can not be empty', 40002, {'ext': 1})
 
 
 @app.route('/load')
@@ -51,6 +62,7 @@ def load_data():
 
     return 'Loading ....'
 
+
 @app.errorhandler(BadRequest)
 def handle_bad_request(error):
     """Catch BadRequest exception globally, serialize into JSON, and respond with 400."""
@@ -58,6 +70,7 @@ def handle_bad_request(error):
     payload['status'] = error.status
     payload['message'] = error.message
     return jsonify(payload), 400
+
 
 @crochet.run_in_reactor
 def scrape_with_crochet():
