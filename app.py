@@ -48,6 +48,14 @@ def data_filter_range():
     response.headers['Content-Type'] = 'application/json'
     return response
 
+@app.route('/Ecuador/<province>', methods=['POST'])
+def data_filter_per_day(province):
+    parameters = json.loads(request.data)
+    filtered_data = CsvExtractor().get_data_by_range_filter_per_day(province, parameters["filter"][0]["value"])
+    response = make_response(json.dumps(filtered_data))
+    response.headers['Content-Type'] = 'application/json'
+    return response
+
 
 def handle_filter_errors(filter):
     if not filter["column"]:
