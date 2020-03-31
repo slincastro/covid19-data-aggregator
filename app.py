@@ -44,7 +44,7 @@ def data_filter_range():
     filter = parameters["filter"]
     filter_parameters = FilterParameters(filter, "", "")
     filtered_data = CsvExtractor().get_data_by_range_filter(filter_parameters)
-    response = make_response(filtered_data)
+    response = make_response(json.dumps(filtered_data))
     response.headers['Content-Type'] = 'application/json'
     return response
 

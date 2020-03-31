@@ -52,4 +52,14 @@ def test_should_return_data_when_send_filter():
     print(response["casos_confirmados"])
     assert response["casos_confirmados"]["pichincha"] == 60
 
+def test_should_return_data_per_day():
+    province_filter = KeyValueFilter("nombre_provincia", "pichincha")
+    date_filter = KeyValueFilter("fecha", "22/3/2020")
+    filters = [province_filter.__dict__, date_filter.__dict__]
+
+    filter_parameters = FilterParameters(filters, "", "")
+    response = extractor.get_data_by_range_filter_per_day(filter_parameters)
+    print(response["casos_confirmados"])
+    assert response["casos_confirmados"]["pichincha"] == 60
+
 
