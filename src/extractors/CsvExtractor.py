@@ -53,9 +53,9 @@ class CsvExtractor:
         data_yesterday = self.get_data_consolidated_per_province(data_per_province, str(yesterday))
 
         column = "casos_confirmados"
-        print(data_yesterday[column])
+
         if not data_today[column]:
-            return {'casos_confirmados':0}
+            return {'casos_confirmados':{ province : 0}}
 
         total_yesterday = 0 if not data_yesterday[column] else data_yesterday[column][province]
         data_today[column][province] = data_today[column][province] - total_yesterday
