@@ -25,14 +25,31 @@ class CsvExtractor:
         return response_json
 
     def get_data_by_range_filter(self, data_filter):
-        data = self.data
-
-        for filter in data_filter.filter:
-            column = filter["column"]
-            value = filter["value"]
-            data = data.loc[data[column] == value]
+        data = self.get_df_data_by_parameters(data_filter)
 
         response = data.replace(pd.np.nan, 0, regex=True)
         response_dict = response.to_dict(orient='records')
         response_json = json.dumps(response_dict)
+        response_json = json.loads(response_json)
         return response_json
+
+    def get_df_data_by_parameters(self, data_filter):
+        data = self.data
+        for filter in data_filter.filter:
+            column = filter["column"]
+            value = filter["value"]
+            data = data.loc[data[column] == value]
+        return data
+
+    def get_data_by_range_filter_per_day(self, filter_parameters):
+        data = self.get_df_data_by_parameters(filter_parameters)
+
+        grouped_data = data.groupby(["nombre_provincia"]).agg({'casos_confirmados':'sum'})
+        response_dict = grouped_data.to_dict()
+        response_json = json.dumps(response_dict)
+        response_json = json.loads(response_json)
+
+        return response_json
+
+
+
