@@ -5,9 +5,10 @@ orbs:
 
 workflows:
   tests:
-    run:
-      name: run tests
-      command: python testApp.py
+    jobs:
+      - run:
+          name: run tests
+          command: python testApp.py
   heroku_deploy:
     jobs:
       - heroku/deploy-via-git:
