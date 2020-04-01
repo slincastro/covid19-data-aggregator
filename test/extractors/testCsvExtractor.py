@@ -17,7 +17,7 @@ def test_should_return_data_when_send_filter():
     assert len(response) == 24
 
 
-def test_should_return_data_when_send_filter():
+def test_should_return_data_when_send_filter_with_infographic():
     province_filter = KeyValueFilter("nombre_provincia", "pichincha")
     infographic_filter = KeyValueFilter("infografia", 25)
     filters = [province_filter.__dict__, infographic_filter.__dict__]
@@ -29,7 +29,7 @@ def test_should_return_data_when_send_filter():
     assert len(response) == 3
 
 
-def test_should_return_data_when_send_filter():
+def test_should_return_data_when_send_filter_with_infographic_and_date():
     province_filter = KeyValueFilter("nombre_provincia", "pichincha")
     infographic_filter = KeyValueFilter("infografia", 25)
     date_filter = KeyValueFilter("fecha", "26/3/2020")
