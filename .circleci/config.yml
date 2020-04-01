@@ -4,11 +4,6 @@ orbs:
   heroku: circleci/heroku@1.0.1
 
 workflows:
-  tests:
-    jobs:
-      - run:
-          name: run tests
-          command: python testApp.py
   heroku_deploy:
     jobs:
       - heroku/deploy-via-git:
